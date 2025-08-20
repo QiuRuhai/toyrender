@@ -13,4 +13,5 @@ add_executable(RayTracing_In_One_Weekend
         hittable_list.h
         rtweekend.h
         interval.h
-        camera.h)
+        camera.h
+        material.h)

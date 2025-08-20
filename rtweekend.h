@@ -11,8 +11,8 @@
 using std::shared_ptr;
 using std::make_shared;
 
-const double infinity = std::numeric_limits<double>::infinity();
-const double pi = 3.1415926535897932385;
+constexpr double infinity = std::numeric_limits<double>::infinity();
+constexpr double pi = 3.1415926535897932385;
 
 inline double degrees_to_radius (double degrees) {
     return degrees * pi / 180.0;
