@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/choutelei/RayTracing In One Weekend/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-15   -g -std=gnu++14 -arch arm64 -o CMakeFiles/RayTracing_In_One_Weekend.dir/main.cpp.o -c \"/Users/choutelei/RayTracing In One Weekend/main.cpp\"",
+  "file": "/Users/choutelei/RayTracing In One Weekend/main.cpp",
+  "output": "CMakeFiles/RayTracing_In_One_Weekend.dir/main.cpp.o"
+}
+]
