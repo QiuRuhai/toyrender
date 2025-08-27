@@ -16,4 +16,7 @@ add_executable(RayTracing_In_One_Weekend
         camera.h
         material.h
         aabb.h
-        BVH.h)
+        BVH.h
+        texture.h
+        rtw_stb_image.h
+)

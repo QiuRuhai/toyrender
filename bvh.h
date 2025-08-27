@@ -22,7 +22,7 @@ public:
             bbox = aabb(bbox, objects[object_index]->bounding_box());
         }
         int axis = bbox.longest_axis();
-0
+
         auto comparator = (axis == 0) ? box_x_compare : (axis == 1) ? box_y_compare : box_z_compare;
 
         size_t object_span = end - start;
