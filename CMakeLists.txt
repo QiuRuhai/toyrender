@@ -20,4 +20,5 @@ add_executable(RayTracing_In_One_Weekend
         texture.h
         rtw_stb_image.h
         perlin.h
+        quad.h
 )
