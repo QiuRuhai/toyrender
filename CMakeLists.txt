@@ -23,4 +23,5 @@ add_executable(RayTracing_In_One_Weekend
         quad.h
         constant_medium.h
         onb.h
+        pdf.h
 )
