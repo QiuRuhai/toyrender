@@ -22,4 +22,5 @@ add_executable(RayTracing_In_One_Weekend
         perlin.h
         quad.h
         constant_medium.h
+        onb.h
 )

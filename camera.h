@@ -1,6 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <valarray>
+
 #include "hittable.h"
 #include "interval.h"
 #include "material.h"
@@ -30,9 +32,11 @@ public:
             std::clog << "\rScanlines remaining: " << (image_height - j) << std::flush;
             for (int i = 0; i < image_width; i++) {
                 color pixel_color(0, 0, 0);
-                for (int sample = 0; sample < samples_per_pixel; sample++) {
-                    ray r = get_ray(i, j);
-                    pixel_color += ray_color(r, max_depth, world);
+                for (int s_j = 0; s_j < sqrt_spp; s_j++) {
+                    for (int s_i = 0; s_i < sqrt_spp; s_i++) {
+                        ray r = get_ray(i, j, s_i, s_j);
+                        pixel_color += ray_color(r, max_depth, world);
+                    }
                 }
                 write_color(std::cout, pixel_color * pixel_samples_scale);
             }
@@ -42,6 +46,8 @@ public:
 private:
     int image_height;
     double pixel_samples_scale;
+    int sqrt_spp;
+    double recip_sqrt_spp;
     point3 center;
     point3 pixel00_loc;
     vec3 pixel_delta_u;
@@ -54,6 +60,8 @@ private:
         image_height = int(image_width / aspect_ratio);
         image_height = (image_height < 1) ? 1 : image_height;
 
+        sqrt_spp = int(std::sqrt(samples_per_pixel));
+        recip_sqrt_spp = 1.0 / sqrt_spp;
         pixel_samples_scale = 1.0 / samples_per_pixel;
 
         center = lookfrom;
@@ -81,8 +89,9 @@ private:
         defocus_disk_v = v * defocus_radius;
     }
 
-    ray get_ray(int i, int j) const {
-        auto offset = sample_square();
+    ray get_ray(int i, int j, int s_i, int s_j) const {
+
+        auto offset = sample_square_stratified(s_i, s_j);
         auto pixel_sample = pixel00_loc + (i + offset.x()) * pixel_delta_u + (j + offset.y()) * pixel_delta_v;
 
         auto ray_origin = (defocus_angle <= 0) ? center : defocus_disk_sample();
@@ -90,6 +99,13 @@ private:
         auto ray_time = random_double();
 
         return ray(ray_origin, ray_direction, ray_time);
+    }
+
+    vec3 sample_square_stratified(int s_i, int s_j) const {
+        auto px = ((s_i + random_double()) * recip_sqrt_spp) - 0.5;
+        auto py = ((s_j + random_double()) * recip_sqrt_spp) - 0.5;
+
+        return vec3(px, py, 0);
     }
 
     vec3 sample_square() const {
@@ -114,13 +130,17 @@ private:
 
         ray scattered;
         color attenuation;
+        double pdf_value;
         color color_from_emission = rec.mat->emitted(rec.u, rec.v, rec.p);
 
-        if (!rec.mat->scatter(r, rec, attenuation, scattered)) {
+        if (!rec.mat->scatter(r, rec, attenuation, scattered, pdf_value)) {
             return color_from_emission;
         }
 
-        color color_from_scatter = attenuation * ray_color(scattered, depth - 1, world);
+        double scattering_pdf = rec.mat->scattering_pdf(r, rec, scattered);
+        pdf_value = scattering_pdf;
+
+        color color_from_scatter = (attenuation * scattering_pdf * ray_color(scattered, depth - 1, world)) / pdf_value;
 
         return color_from_emission + color_from_scatter;
     }

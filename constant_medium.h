@@ -7,9 +7,9 @@
 
 class constant_medium : public hittable {
 public:
-    constant_medium(shared_ptr<hittable> boundary, double density, shared_ptr<material> tex) : boundary(boundary), neg_inv_density(-1 / density), phase_function(tex) {}
+    constant_medium(shared_ptr<hittable> boundary, double density, shared_ptr<texture> tex) : boundary(boundary), neg_inv_density(-1 / density), phase_function(make_shared<isotropic>(tex)) {}
 
-    constant_medium(shared_ptr<hittable> boudary, double density, const color& albedo) : boundary(boudary), neg_inv_density(-1 / density), phase_function(make_shared<isotropic>(albedo)) {}
+    constant_medium(shared_ptr<hittable> boundary, double density, const color& albedo) : boundary(boundary), neg_inv_density(-1 / density), phase_function(make_shared<isotropic>(albedo)) {}
 
     bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
         hit_record rec1, rec2;
@@ -18,7 +18,7 @@ public:
             return false;
         }
 
-        if (!boundary->hit(r, interval(rec.t + 0.001, infinity), rec2)) {
+        if (!boundary->hit(r, interval(rec1.t + 0.001, infinity), rec2)) {
             return false;
         }
 
