@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/choutelei/02_Code/toyrender/build/Clang 21.1.4 arm64-apple-darwin24.6.0/Debug",
+  "command": "/opt/homebrew/opt/llvm/bin/clang++ -g -std=gnu++14 -arch arm64 -o CMakeFiles/RayTracing_In_One_Weekend.dir/main.cpp.o -c /Users/choutelei/02_Code/toyrender/main.cpp",
+  "file": "/Users/choutelei/02_Code/toyrender/main.cpp",
+  "output": "/Users/choutelei/02_Code/toyrender/build/Clang 21.1.4 arm64-apple-darwin24.6.0/Debug/CMakeFiles/RayTracing_In_One_Weekend.dir/main.cpp.o"
+}
+]
