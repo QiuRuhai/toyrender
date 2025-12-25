@@ -4,3 +4,10 @@
 
 后期实现：考虑用cuda重新写一遍内容，
         或者看pbrt v4来加入一些新的功能
+
+Demo效果图：
+![Cornell Box](demo/image.png)
+
+![All Features](demo/omp_out.png)
+
+![A beautiful image](demo/rtweekend.jpg)

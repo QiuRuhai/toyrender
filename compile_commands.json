@@ -1,8 +1,8 @@
 [
 {
-  "directory": "/Users/choutelei/02_Code/toyrender/build/Clang 21.1.4 arm64-apple-darwin24.6.0/Debug",
-  "command": "/opt/homebrew/opt/llvm/bin/clang++ -g -std=gnu++14 -arch arm64 -o CMakeFiles/RayTracing_In_One_Weekend.dir/main.cpp.o -c /Users/choutelei/02_Code/toyrender/main.cpp",
-  "file": "/Users/choutelei/02_Code/toyrender/main.cpp",
-  "output": "/Users/choutelei/02_Code/toyrender/build/Clang 21.1.4 arm64-apple-darwin24.6.0/Debug/CMakeFiles/RayTracing_In_One_Weekend.dir/main.cpp.o"
+  "directory": "D:/Code/src/toyrender/build",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe\"  /nologo /TP /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -std:c++17 -MD -openmp /FoCMakeFiles\\toyrenderer.dir\\core\\main.cpp.obj /FdCMakeFiles\\toyrenderer.dir\\ /FS -c D:\\Code\\src\\toyrender\\core\\main.cpp",
+  "file": "D:/Code/src/toyrender/core/main.cpp",
+  "output": "D:/Code/src/toyrender/build/CMakeFiles/toyrenderer.dir/core/main.cpp.obj"
 }
 ]

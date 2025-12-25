@@ -1,6 +1,6 @@
 #ifndef RAYTRACING_IN_ONE_WEEKEND_PERLIN_H
 #define RAYTRACING_IN_ONE_WEEKEND_PERLIN_H
-#include "rtweekend.h"
+#include "vec3.h"
 
 class perlin {
 public:

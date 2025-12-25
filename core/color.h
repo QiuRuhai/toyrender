@@ -1,7 +1,3 @@
-//
-// Created by 仇特勒 on 25-8-19.
-//
-
 #ifndef COLOR_H
 #define COLOR_H
 

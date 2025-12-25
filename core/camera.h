@@ -1,12 +1,12 @@
-#ifndef CAMERA_H
-#define CAMERA_H
-
-#include <valarray>
-
+#pragma once
 #include "hittable.h"
 #include "pdf.h"
 #include "interval.h"
 #include "material.h"
+
+#include <iostream>
+#include <chrono>
+#include <vector>
 
 class camera {
 public:
@@ -29,6 +29,14 @@ public:
         initializer();
 
         std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+
+        std::cerr << "Start rendering...\n";
+
+        auto start_time = std::chrono::high_resolution_clock::now();
+
+        std::vector<color> framebuffer(image_width * image_height);
+
+#pragma omp parallel for schedule(dynamic, 1)
         for (int j = 0; j < image_height; j++) {
             std::clog << "\rScanlines remaining: " << (image_height - j) << std::flush;
             for (int i = 0; i < image_width; i++) {
@@ -39,10 +47,19 @@ public:
                         pixel_color += ray_color(r, max_depth, world, lights);
                     }
                 }
-                write_color(std::cout, pixel_color * pixel_samples_scale);
+                framebuffer[j * image_width + i] = pixel_color * pixel_samples_scale;
             }
         }
-        std::clog << "\rDone.                 \n";
+
+        for(const auto& pixel_color : framebuffer) {
+            write_color(std::cout, pixel_color);
+        }
+
+        std::cerr << "\nRendering completed.\n";
+        
+        auto end_time = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+        std::cerr << "Rendering time: " << duration << " milliseconds.\n";
     }
 private:
     int image_height;
@@ -154,5 +171,3 @@ private:
         return color_from_emission + color_from_scatter;
     }
 };
-
-#endif //CAMERA_H
